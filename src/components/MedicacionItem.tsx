@@ -7,9 +7,7 @@ type Props = {
   onEliminar: (id: string) => void;
 };
 
-// Este es el "componente reutilizable" que pide la consigna: recibe sus
-// datos por props, no sabe nada de AsyncStorage ni de navegación, así que
-// se puede usar (y testear) de forma completamente aislada.
+
 export default function MedicacionItem({ medicacion, onEliminar }: Props) {
   return (
     <View style={styles.card} testID={`medicacion-item-${medicacion.id}`}>

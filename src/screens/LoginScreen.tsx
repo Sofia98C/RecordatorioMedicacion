@@ -24,14 +24,13 @@ export default function LoginScreen({ navigation }: Props) {
       return;
     }
 
-    // Validamos contra los usuarios guardados en AsyncStorage
     const esValido = await validarLogin(usuario.trim(), password);
     if (!esValido) {
       Alert.alert('Error', 'Usuario o contraseña incorrectos.');
       return;
     }
 
-    // Al cambiar isAuthenticated, el AppNavigator muestra Home solo
+   
     await login(usuario.trim());
   };
 

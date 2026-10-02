@@ -1,9 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Medicacion } from '../navigation/types';
 
-// Cada usuario tiene su propia lista, guardada bajo una clave distinta
-// (ej: "@medicaciones_sofia"). Así, si dos personas usan la misma app,
-// no se pisan los datos entre sí.
+
 function keyDe(usuario: string): string {
   return `@medicaciones_${usuario.toLowerCase()}`;
 }

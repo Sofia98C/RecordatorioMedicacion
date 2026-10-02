@@ -1,8 +1,3 @@
-// IMPORTANTE: no usar "import * as Notifications from 'expo-notifications'".
-// Ese import completo carga también el código de push remoto, que Expo Go
-// ya no soporta desde la SDK 53 y hace crashear la app apenas arranca.
-// Importamos solo las funciones puntuales que necesitamos para notificaciones
-// LOCALES, que es lo único que pide la consigna.
 import * as Device from 'expo-device';
 import { Alert, Linking, Platform } from 'react-native';
 import { AndroidImportance } from 'expo-notifications/build/NotificationChannelManager.types';
@@ -25,16 +20,11 @@ setNotificationHandler({
 });
  
 export async function pedirPermisos(): Promise<boolean> {
-  // expo-notifications funciona mejor en un dispositivo físico; en emulador
-  // puede comportarse raro. Solo avisamos, no bloqueamos nada.
   if (!Device.isDevice) {
     console.warn('[Notificaciones] Emulador detectado, puede no funcionar igual que en un celular real.');
   }
  
-  // En Android 8+ es obligatorio crear un "canal" antes de poder notificar,
-  // si no, la notificación puede no llegar a mostrarse aunque el permiso
-  // esté concedido. Va en try/catch porque en Expo Go a veces falla, y no
-  // queremos que eso frene el resto del flujo de permisos.
+  
   if (Platform.OS === 'android') {
     try {
       await setNotificationChannelAsync('recordatorios', {
@@ -48,8 +38,6 @@ export async function pedirPermisos(): Promise<boolean> {
     }
   }
  
-  // Primero CONSULTAMOS el permiso actual — si ya estaba concedido antes,
-  // no hace falta volver a mostrarle el cartel al usuario cada vez.
   const existente = await getPermissionsAsync();
   let estadoFinal = existente.status;
   let puedePreguntarDeNuevo = existente.canAskAgain;

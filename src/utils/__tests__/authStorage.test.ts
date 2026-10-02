@@ -1,5 +1,3 @@
-// Mock oficial de AsyncStorage para tests: simula el comportamiento real
-// en memoria, sin tocar ningún storage de verdad.
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock')
 );
@@ -13,8 +11,6 @@ import {
   cerrarSesion,
 } from '../authStorage';
 
-// Limpiamos el storage simulado antes de cada test, para que uno no
-// "contamine" al siguiente con datos que quedaron de otro caso.
 beforeEach(async () => {
   await AsyncStorage.clear();
 });

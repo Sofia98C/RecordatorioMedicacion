@@ -14,9 +14,7 @@ export default function HomeScreen({ navigation }: Props) {
   const { usuario, logout } = useAuth();
   const [medicaciones, setMedicaciones] = useState<Medicacion[]>([]);
 
-  // Home queda montada cuando vamos a AltaMedicacion, así que un useEffect
-  // común no se vuelve a ejecutar al volver. useFocusEffect corre cada vez
-  // que la pantalla toma foco, y así la lista siempre está actualizada.
+ 
   useFocusEffect(
     useCallback(() => {
       if (usuario) {

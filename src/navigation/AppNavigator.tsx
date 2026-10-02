@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function AppNavigator() {
   const { isAuthenticated, isLoading } = useAuth();
 
-  // Mientras se lee la sesión de AsyncStorage mostramos un loader
+ 
   if (isLoading) {
     return (
       <View style={styles.loading}>
@@ -23,8 +23,7 @@ export default function AppNavigator() {
     );
   }
 
-  // Sin sesión solo existen Login y Registro: no se puede entrar a la app
-  // sin iniciar sesión. Al hacer login/logout el navigator cambia solo.
+ 
   return (
     <NavigationContainer>
       <Stack.Navigator

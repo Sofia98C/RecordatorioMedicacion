@@ -16,7 +16,6 @@ export default function AltaMedicacionScreen({ navigation }: Props) {
   const { usuario } = useAuth();
   const [nombre, setNombre] = useState('');
   const [hora, setHora] = useState('');
-  // Cuándo queremos que suene el recordatorio: una cantidad y una unidad
   const [cantidad, setCantidad] = useState('10');
   const [unidad, setUnidad] = useState<UnidadTiempo>('segundos');
 

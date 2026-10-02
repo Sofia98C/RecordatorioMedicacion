@@ -16,7 +16,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [usuario, setUsuario] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Al abrir la app, buscamos si había una sesión guardada en AsyncStorage
+ 
   useEffect(() => {
     loadSession();
   }, []);
