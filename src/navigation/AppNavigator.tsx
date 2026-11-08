@@ -2,20 +2,25 @@ import React from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../stores/authStore";
 import { RootStackParamList } from "./types";
 import LoginScreen from "../screens/LoginScreen";
 import RegistroScreen from "../screens/RegistroScreen";
 import HomeScreen from "../screens/HomeScreen";
 import AltaMedicacionScreen from "../screens/AltaMedicacionScreen";
+import CamaraScreen from "../screens/CamaraScreen";
+import DetalleMedicacionScreen from "../screens/DetalleMedicacionScreen";
+import ContactosScreen from "../screens/ContactosScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const usuario = useAuthStore((s) => s.usuario);
+  const hidratado = useAuthStore((s) => s.hidratado);
+  const isAuthenticated = usuario !== null;
 
- 
-  if (isLoading) {
+   
+  if (!hidratado) {
     return (
       <View style={styles.loading}>
         <ActivityIndicator size="large" />
@@ -23,7 +28,6 @@ export default function AppNavigator() {
     );
   }
 
- 
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -36,6 +40,17 @@ export default function AppNavigator() {
               name="AltaMedicacion"
               component={AltaMedicacionScreen}
               options={{ title: "Nueva medicación" }}
+            />
+            <Stack.Screen name="Camara" component={CamaraScreen} options={{ title: "Sacar foto" }} />
+            <Stack.Screen
+              name="DetalleMedicacion"
+              component={DetalleMedicacionScreen}
+              options={{ title: "Detalle" }}
+            />
+            <Stack.Screen
+              name="Contactos"
+              component={ContactosScreen}
+              options={{ title: "Elegir contacto" }}
             />
           </>
         ) : (

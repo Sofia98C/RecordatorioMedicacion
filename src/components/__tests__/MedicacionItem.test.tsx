@@ -24,4 +24,33 @@ describe('MedicacionItem', () => {
     expect(onEliminar).toHaveBeenCalledTimes(1);
     expect(onEliminar).toHaveBeenCalledWith('1');
   });
+
+  it('muestra la foto cuando la medicación tiene fotoUri', () => {
+    const conFoto = { ...medicacionDePrueba, fotoUri: 'file:///fotos/ibuprofeno.jpg' };
+    render(<MedicacionItem medicacion={conFoto} onEliminar={jest.fn()} />);
+    expect(screen.getByTestId('medicacion-foto')).toBeTruthy();
+  });
+
+  it('no muestra foto cuando la medicación no tiene', () => {
+    render(<MedicacionItem medicacion={medicacionDePrueba} onEliminar={jest.fn()} />);
+    expect(screen.queryByTestId('medicacion-foto')).toBeNull();
+  });
+
+  it('llama a onPress para abrir el detalle', () => {
+    const onPress = jest.fn();
+    render(<MedicacionItem medicacion={medicacionDePrueba} onEliminar={jest.fn()} onPress={onPress} />);
+    fireEvent.press(screen.getByTestId('medicacion-detalle'));
+    expect(onPress).toHaveBeenCalledWith('1');
+  });
+
+  it('muestra la farmacia y el contacto asociados', () => {
+    const completa = {
+      ...medicacionDePrueba,
+      farmacia: { direccion: 'Av. Mate de Luna 1234', origen: 'manual' as const },
+      contacto: { nombre: 'Dra. Gómez', origen: 'agenda' as const },
+    };
+    render(<MedicacionItem medicacion={completa} onEliminar={jest.fn()} />);
+    expect(screen.getByText(/Av. Mate de Luna 1234/)).toBeTruthy();
+    expect(screen.getByText(/Dra. Gómez/)).toBeTruthy();
+  });
 });

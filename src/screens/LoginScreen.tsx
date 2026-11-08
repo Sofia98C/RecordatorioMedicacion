@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
-import { useAuth } from '../context/AuthContext';
+import { useAuthStore } from '../stores/authStore';
 import { validarLogin } from '../utils/authStorage';
 import { esGmailValido } from '../utils/validators';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 export default function LoginScreen({ navigation }: Props) {
-  const { login } = useAuth();
+  const login = useAuthStore((s) => s.login);
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
 
@@ -31,7 +31,7 @@ export default function LoginScreen({ navigation }: Props) {
     }
 
    
-    await login(usuario.trim());
+    login(usuario.trim());
   };
 
   return (

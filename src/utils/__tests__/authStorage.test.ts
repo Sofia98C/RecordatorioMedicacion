@@ -3,13 +3,7 @@ jest.mock('@react-native-async-storage/async-storage', () =>
 );
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  registrarUsuario,
-  validarLogin,
-  guardarSesion,
-  obtenerSesion,
-  cerrarSesion,
-} from '../authStorage';
+import { registrarUsuario, validarLogin } from '../authStorage';
 
 beforeEach(async () => {
   await AsyncStorage.clear();
@@ -45,25 +39,5 @@ describe('validarLogin', () => {
   it('retorna false si el usuario no existe', async () => {
     const esValido = await validarLogin('noexiste', 'clave123');
     expect(esValido).toBe(false);
-  });
-});
-
-describe('sesión activa', () => {
-  it('guarda y recupera la sesión activa', async () => {
-    await guardarSesion('sofia');
-    const sesion = await obtenerSesion();
-    expect(sesion).toBe('sofia');
-  });
-
-  it('retorna null si no hay sesión guardada', async () => {
-    const sesion = await obtenerSesion();
-    expect(sesion).toBeNull();
-  });
-
-  it('elimina la sesión al cerrar sesión', async () => {
-    await guardarSesion('sofia');
-    await cerrarSesion();
-    const sesion = await obtenerSesion();
-    expect(sesion).toBeNull();
   });
 });

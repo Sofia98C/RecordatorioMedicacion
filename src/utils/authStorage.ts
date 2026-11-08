@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Usuario } from '../navigation/types';
 
 const KEY_USUARIOS = '@usuarios';
-const KET_SESION = '@session_activa';
 
 async function getUsuarios(): Promise<Usuario[]> {
     const data = await AsyncStorage.getItem(KEY_USUARIOS);
@@ -28,16 +27,4 @@ export async function registrarUsuario(
 export async function validarLogin(usuario: string, password: string): Promise<boolean>{
     const usuarios = await getUsuarios();
     return usuarios.some((u) => u.usuario.toLowerCase() === usuario.toLowerCase() && u.password === password);
-}
-
-export async function guardarSesion(usuario: string):Promise<void>{
-    await AsyncStorage.setItem(KET_SESION, usuario);
-}
-
-export async function obtenerSesion(): Promise<string | null> {
-    return await AsyncStorage.getItem(KET_SESION);
-}
-
-export async function cerrarSesion(): Promise<void> {
-    await AsyncStorage.removeItem(KET_SESION);
 }
