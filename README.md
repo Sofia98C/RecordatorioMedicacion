@@ -8,7 +8,7 @@ Aplicaciones Móviles — (React Native + Expo SDK 57)
 
 ## 🎥 Videos demo
 
-- **Parcial 2**: [Ver en YouTube](https://www.youtube.com/shorts/gyX8caNl5L8)
+- **Parcial 2**: [Ver en YouTube](https://www.youtube.com/shorts/ggmmX0HhbcA)
 - Parcial 1: [Ver en YouTube](https://www.youtube.com/shorts/yBNPnYDb3AQ)
 
 ## Cómo ejecutar la app
